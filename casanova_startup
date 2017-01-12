@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set oldpythonpath = "${PYTHONPATH}"
+
+# The executable text file 'install_casanova' automatically creates the 'python_packages' folder.
+# Change this path:
+setenv PYTHONPATH "/data1/MartijnOei/CASANOVA/casapy/python_packages:${PYTHONPATH}"
+
+# Change only the first and last element of this path (linux socorro is OK)
+# The first element is the directory where the casa code is stored, so /own/path/casa-release-something
+# The last element is the computer name (in my case this was bergsemaas). I'm not sure if this is even used, but change it anyway.
+setenv CASAPATH "/data1/MartijnOei/CASANOVA/casapy/casa-release-4.5.2-el6  linux socorro bergsemaas"
+
+set casaPathFirstPart = "/data1/MartijnOei/CASANOVA/casapy/casa-release-4.5.2-el6"
+setenv LD_LIBRARY_PATH $casaPathFirstPart/lib:$LD_LIBRARY_PATH
+
+python $argv # Or use ipython
+
+setenv PYTHONPATH "${oldpythonpath}"
